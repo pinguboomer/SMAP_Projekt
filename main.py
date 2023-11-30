@@ -1,14 +1,47 @@
-import pandas as pd
-import pdfquery
-from pdfquery import PDFQuery
+import nltk
 
-pdf = PDFQuery('example.pdf')
+from pdfquery import PDFQuery
+from sumy.parsers.plaintext import PlaintextParser
+from sumy.nlp.tokenizers import Tokenizer
+from sumy.summarizers.lex_rank import LexRankSummarizer
+from sumy.summarizers.text_rank import TextRankSummarizer
+from profil import Profil
+
+print("start")
+pdf = PDFQuery('d:\\template_5.pdf')
 pdf.load()
 
-# Use CSS-like selectors to locate the elements
-text_elements = pdf.pq('LTTextLineHorizontal')
+Rozhodci1 = Profil()
+Rozhodci1.dekodujHodnoceni(pdf)
+Rozhodci1.printPosudek()
+print()
 
-# Extract the text from the elements
-text = [t.text for t in text_elements]
+finalniPopis = Rozhodci1.hodnoceni.dejFinalniPopis()
+print(Rozhodci1.hodnoceni.dejFinalniPopis())
 
-print(text)
+# print()
+# gen_summary = summarize()
+# print(gen_summary)
+nltk.download('punkt')
+# Creating text parser using tokenization
+parser = PlaintextParser.from_string(finalniPopis, Tokenizer("czech"))
+
+# Summarize using sumy TextRank
+summarizer = TextRankSummarizer()
+summary = summarizer(parser.document, 2)
+
+text_summary = ""
+for sentence in summary:
+    text_summary += str(sentence)
+
+print(text_summary)
+print()
+summarizer_lex = LexRankSummarizer()
+
+# Summarize using sumy LexRank
+summary = summarizer_lex(parser.document, 2)
+lex_summary = ""
+
+for sentence in summary:
+    lex_summary += str(sentence)
+print(lex_summary)
