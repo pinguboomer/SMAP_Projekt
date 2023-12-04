@@ -17,8 +17,8 @@ class Controller:
         x1 = float(slovo.get('x1', 0)) + 65
         y1 = float(slovo.get('y1', 0))
         return x0, x1, y0, y1, self.pdf.pq(
-            'LTPage[page_index="{}"] LTTextLineHorizontal:overlaps_bbox("%s, %s, %s, %s")'.format(stranka) % (
-                x0, y0, x1, y1)).text()
+            'LTPage[page_index="{}"] LTTextLineHorizontal:overlaps_bbox("%s, %s, %s, %s")'
+            .format(stranka) % (x0, y0, x1, y1)).text()
 
     def ziskej_osobnost(self, slovo, stranka):
         x0 = float(slovo.get('x0', 0)) + 65
@@ -29,8 +29,6 @@ class Controller:
             'LTPage[page_index="{}"] LTTextLineHorizontal:overlaps_bbox("%s, %s, %s, %s")'.format(stranka) % (
                 x0, y0, x1, y1)).text()
 
-
-
     def ziskej_dalsi_znamku(self, stranka, x0, x1, y0, y1):
         y0 = y0 - 13
         y1 = y1 - 13
@@ -40,7 +38,6 @@ class Controller:
         if str(znamka).isnumeric():
             return y0, y1, znamka
         return y0, y1, None
-
 
     def ziskej_text_k_celku(self, stranka, x1, y0, y1):
         y0 = y0 - 20
