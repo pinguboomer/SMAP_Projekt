@@ -40,11 +40,11 @@ class Profil:
         self.hodnoceni.dekodujHodnoceni()
 
     def ziskej_hlavicku(self, slovo, jeDFA):
-        x0 = float(slovo.get('x0', 0)) - 15
+        x0 = float(slovo.get('x0', 0)) - 13
         y0 = float(slovo.get('y0', 0)) - 25
         if jeDFA:
             y0 = float(slovo.get('y0', 0)) - 95
-        x1 = float(slovo.get('x1', 0)) + 15
+        x1 = float(slovo.get('x1', 0)) + 13
         y1 = float(slovo.get('y1', 0)) - 25
         if jeDFA:
             y1 = float(slovo.get('y1', 0)) - 95
